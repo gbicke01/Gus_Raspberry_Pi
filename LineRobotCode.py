@@ -1,3 +1,7 @@
+# Stepper motor code and color sensor code provided by Briana Bouchard
+# Revised by Gus Bickert and Calder Mazel
+# Commented out print() lines were used for debugging
+
 import RPi.GPIO as GPIO
 import time
 import board
@@ -128,7 +132,7 @@ def moveSteps_right(input_steps, speed):
                 
         setMotor_right(current_step, delay)
         
-    print("Stepping complete! Your right motor completed " + str(abs(input_steps)) + " steps at " + str(speed)+ " revolutions per minute")
+    # print("Stepping complete! Your right motor completed " + str(abs(input_steps)) + " steps at " + str(speed)+ " revolutions per minute")
 
 
 def moveSteps_left(input_steps, speed):    
@@ -157,11 +161,10 @@ def moveSteps_left(input_steps, speed):
                 
         setMotor_left(current_step, delay)
         
-    print("Stepping complete! Your left motor completed " + str(abs(input_steps)) + " steps at " + str(speed)+ " revolutions per minute")
+    # print("Stepping complete! Your left motor completed " + str(abs(input_steps)) + " steps at " + str(speed)+ " revolutions per minute")
 
 #----------------------------------------
 #WE'RE ONLY USING PROPORTIONAL CONTROL
-#IGNORE COMMENTED OUT CODE IN THIS BLOCK
 #----------------------------------------
 def PID(color, r, g, b):
 
@@ -174,13 +177,6 @@ def PID(color, r, g, b):
     error = color - (r+g+b)
     #Since r, g, b are high values when reading the white paper, this error value will be a
     #very large negative value
-
-
-    # global integral = integral + error
-    # temp_derivative = error - derivative
-    # global derivative = temp_derivative
-    # PID = error+integral+derivative
-    # return PID
 
 
     print("This is the error:", error)
@@ -196,16 +192,16 @@ try:
 
         # get the data and print the different channels
         r, g, b, c = apds.color_data
-        print("red: ", r)
-        print("green: ", g)
-        print("blue: ", b)
-        print("clear: ", c)
-        print("color temp {}".format(colorutility.calculate_color_temperature(r, g, b)))
-        print("light lux {}".format(colorutility.calculate_lux(r, g, b)))
+        # print("red: ", r)
+        # print("green: ", g)
+        # print("blue: ", b)
+        # print("clear: ", c)
+        # print("color temp {}".format(colorutility.calculate_color_temperature(r, g, b)))
+        # print("light lux {}".format(colorutility.calculate_lux(r, g, b)))
         time.sleep(0.1)
 
         black = r+g+b
-        print('THIS IS BLACK VALUE: ',black)
+        # print('THIS IS BLACK VALUE: ',black)
         #-----------------------------------
         #To control right motor
         #-----------------------------------
@@ -247,11 +243,6 @@ try:
             moveSteps_left(round((-5 + (PID(2800, r, g, b)*0.001))), 20)
             print("Moves ", round((-5 + (PID(2800, r, g, b)*0.001)))," steps")
             print("Color sensor reads black ")
-
-        
-        # Turn off GPIO pins
-        #GPIO.cleanup()
-        #break
 
 except KeyboardInterrupt:
     # Turn off GPIO pins
