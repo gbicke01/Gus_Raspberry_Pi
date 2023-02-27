@@ -12,6 +12,18 @@ from ThreadStepperLib import Stepper
 # import board
 # import digitalio
 
+# Pin numbers for right and left motor drivers
+rin1 = 12
+rin2 = 11
+rin3 = 13
+rin4 = 15
+lin1 = 36
+lin2 = 38
+lin3 = 40
+lin4 = 37
+
+
+
 picam2 = Picamera2()
 
 #configure the picamera
@@ -33,6 +45,24 @@ Motor1 = [12,11,13,15]
 Motor2 = [36,38,40,37]
 
 def moveSteps(step_right, step_left):
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(rin1, GPIO.OUT)
+    GPIO.setup(rin2, GPIO.OUT)
+    GPIO.setup(rin3, GPIO.OUT)
+    GPIO.setup(rin4, GPIO.OUT)
+    GPIO.output(rin1, GPIO.LOW)
+    GPIO.output(rin2, GPIO.LOW)
+    GPIO.output(rin3, GPIO.LOW)
+    GPIO.output(rin4, GPIO.LOW)
+
+    GPIO.setup(lin1, GPIO.OUT)
+    GPIO.setup(lin2, GPIO.OUT)
+    GPIO.setup(lin3, GPIO.OUT)
+    GPIO.setup(lin4, GPIO.OUT)
+    GPIO.output(lin1, GPIO.LOW)
+    GPIO.output(lin2, GPIO.LOW)
+    GPIO.output(lin3, GPIO.LOW)
+    GPIO.output(lin4, GPIO.LOW)
     try:
         # Define the steps per revolution for the motor 
         steps_rev = 200
@@ -118,5 +148,5 @@ while(True):
     elif percent_blue <= 1:
         moveSteps(2, 1)
     else:
-        moveSteps(0, 0)
+        moveSteps(1, 1)
     
