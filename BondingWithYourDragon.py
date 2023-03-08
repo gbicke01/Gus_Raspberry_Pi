@@ -9,7 +9,6 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 
-
 class VelocityPublisher(Node):
     def __init__(self):
         super().__init__('velocity_publisher')
